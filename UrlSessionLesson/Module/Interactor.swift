@@ -28,7 +28,6 @@ class Interactor: InteractorInput {
         stack.persistentContainer.performBackgroundTask { (context) in
             
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "RepImage")
-            //fetchRequest.sortDescriptors = [] //optionally you can specify the order in which entities should ordered after fetch finishes
             let results = try! context.fetch(fetchRequest)
             let res = results as! [RepImage]
             var lol: [ImageViewModel] = []

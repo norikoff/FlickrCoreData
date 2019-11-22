@@ -50,15 +50,19 @@ class ViewController: UIViewController {
 	}
 
 	private func search(by searchString: String) {
+        let group = DispatchGroup()
+        group.enter()
 		interactor.loadImageList(by: searchString) { [weak self] models in
-//			self.images = models
+            group.enter()
             self!.interactor.loadImageFromDb(completion: { (im) in
                 self?.images = im!
-                self!.tableView.reloadData()
+                group.leave()
             })
-            
-            
+            group.leave()
 		}
+        group.notify(queue: DispatchQueue.main) {
+            self.tableView.reloadData()
+        }
 	}
 
 //    private func loadImages(with models: [ImageModel]) {
